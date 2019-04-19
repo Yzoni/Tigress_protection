@@ -649,6 +649,7 @@ def main():
     # AST representation as Python syntax
     ctx.setAstRepresentationMode(AST_REPRESENTATION.PYTHON)
 
+
     if len(sys.argv) != 2:
         debug('[-] Syntax: %s <target vm>' %(sys.argv[0]))
         return -1
@@ -660,15 +661,19 @@ def main():
     raw_input("Press Enter to continue...")
 
     # Load the binary
+    raw_input("About to load binary, press ENTER to continue...")
     loadBinary(ctx, binary)
-
+    raw_input("Press ENTER to continue...")
+    
     raw_input("About to do Relocations, press ENTER to continue...")
     # Perform our own relocations
     makeRelocation(ctx, binary)
     raw_input("Press ENTER to continue...")
 
     # Init and emulate
+    raw_input("About to do run emulation, press ENTER to continue...")
     run(ctx, binary)
+    raw_input("Press ENTER to continue...")
 
     # we got 100% of code coverage (there is only one path).
     if len(condition) == 0 or OPAQUE == True:
