@@ -612,6 +612,10 @@ def generateSymbolicExpressions(pathNumber):
     fd = open(name, 'w')
     fd.write(TEMPLATE_GENERATE_HASH_SSA % (ssa, last))
     fd.close()
+
+    
+    print(ssa)
+
     return
 
 
@@ -650,13 +654,18 @@ def main():
         return -1
 
     # Parse the binary
+    raw_input("About to show LIEF output, press ENTER to continue...")
     binary = lief.parse(sys.argv[1])
+    print(binary)
+    raw_input("Press Enter to continue...")
 
     # Load the binary
     loadBinary(ctx, binary)
 
+    raw_input("About to do Relocations, press ENTER to continue...")
     # Perform our own relocations
     makeRelocation(ctx, binary)
+    raw_input("Press ENTER to continue...")
 
     # Init and emulate
     run(ctx, binary)
@@ -664,11 +673,16 @@ def main():
     # we got 100% of code coverage (there is only one path).
     if len(condition) == 0 or OPAQUE == True:
         # Generate symbolic epxressions of the first path
+        
+        raw_input("About to do generate SYMBOLIC expressions, press ENTER to continue...")
         generateSymbolicExpressions(0)
+        raw_input("Press ENTER to continue...")
 
+        raw_input("About to do generate LLVM expressions, press ENTER to continue...")
         # Generate llvm of the first path
         M = generateLLVMExpressions(ctx, 0)
-
+        print(M)
+        raw_input("Press ENTER to continue...")
         # Recompile the LLVM-IL
         recompile(M)
     else:
